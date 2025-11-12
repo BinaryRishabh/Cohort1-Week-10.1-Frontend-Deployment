@@ -25,7 +25,8 @@ app.use("/user", userRouter);
 
 app.get('/name', (req, res) => {
     res.send(`<h1>Shalini Srivastava</h1>
-        <h3>Prashasti Srivastava</h3>`);
+        <h3>Prashasti Srivastava</h3>
+        Hello`);
 })
 
 app.listen(3000);
