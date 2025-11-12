@@ -21,4 +21,8 @@ app.use("/admin", adminRouter);
 app.use("/course", courseRouter);
 app.use("/user", userRouter);
 
+app.get('/name', (req, res) => {
+    res.send(`<h1>Rishabh Srivastava</h1>`);
+})
+
 app.listen(3000);
