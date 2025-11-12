@@ -24,9 +24,11 @@ app.use("/course", courseRouter);
 app.use("/user", userRouter);
 
 app.get('/name', (req, res) => {
-    res.send(`<h1>Shalini Srivastava</h1>
-        <h3>Prashasti Srivastava</h3>
-        Helllo`);
+    res.send(`<h1>Anil Kumar Srivastava</h1>
+        <h2>Shalini Srivastava</h2>
+        <h3>Akasnsha Srivastava</h3>
+        <h4>Prashasti Srivastava</h4>
+        <h5>Rishabh Srivastava</h5>`);
 })
 
 app.listen(3000);
