@@ -17,8 +17,8 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
-        echo "$SSH_PRIVATE_KEY" > key_file.pem
-        chmod 400 key_file.pem
+        echo "$SSH_PRIVATE_KEY" > key_file
+        chmod 400 key_file
         mkdir -p ~/.ssh
         cp known_hosts ~/.ssh/known_hosts
-        ssh -o StrictHostKeyChecking=no -t -i key_file.pem ubuntu@ec2-16-171-197-18.eu-north-1.compute.amazonaws.com "bash ./deploy.sh"
+        ssh -t -i key_file ubuntu@ec2-16-171-197-18.eu-north-1.compute.amazonaws.com "bash ./deploy.sh"
