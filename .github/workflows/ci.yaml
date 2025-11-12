@@ -21,4 +21,4 @@ jobs:
         chmod 400 key_file
         mkdir -p ~/.ssh
         cp known_hosts ~/.ssh/known_hosts
-        ssh -t -i key_file ubuntu@ec2-16-171-197-18.eu-north-1.compute.amazonaws.com "bash ./deploy.sh"
+        ssh -t -i key_file ubuntu@ec2-16-171-197-18.eu-north-1.compute.amazonaws.com "bash ~/deploy.sh"
