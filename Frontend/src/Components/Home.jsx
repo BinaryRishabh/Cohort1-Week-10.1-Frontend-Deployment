@@ -40,7 +40,7 @@ function Home() {
                 </div> }
             </div>
             <div style={{ marginRight: 100, marginTop: 50 }}>
-                <img style={{ height: 300, width: 500 }} src="../src/images/pexels-pixabay-159844.jpg" />
+                <img style={{ height: 300, width: 500 }} src="pexels-pixabay-159844.jpg" />
             </div>
         </div>
     )

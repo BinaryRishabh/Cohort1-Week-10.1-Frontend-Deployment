@@ -52,7 +52,7 @@ function InitUser() {
 
   const init = async() => {
     try {
-      const response = await axios.get("http://localhost:3000/admin/verify", {
+      const response = await axios.get("http://localhost:3000/api/admin/verify", {
         method: "GET",
         headers: {
           "authorization": localStorage.getItem("token")

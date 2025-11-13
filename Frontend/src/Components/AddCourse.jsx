@@ -79,7 +79,7 @@ function AddCourse() {
                             variant="contained" 
                             size="small"
                             onClick={() => {
-                                fetch("http://localhost:3000/course/addCourse", {
+                                fetch("http://localhost:3000/api/course/addCourse", {
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json",

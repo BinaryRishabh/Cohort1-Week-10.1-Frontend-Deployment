@@ -17,7 +17,11 @@ export const isCourseDetailsSelector = selector({
     get: ({ get }) => {
         const state = get(courseState);
 
-        return state.course;
+        if(state.course) {
+            return state.course;
+        }
+
+        return "";
     }
 })
 

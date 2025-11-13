@@ -42,7 +42,7 @@ function Signup() {
                         variant="contained" 
                         size="small"
                         onClick={ () => {
-                            fetch("http://localhost:3000/admin/signup", {
+                            fetch("http://localhost:3000/api/admin/signup", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",

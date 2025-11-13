@@ -7,7 +7,7 @@ function Courses() {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/course/allCourses", {
+        fetch("http://localhost:3000/api/course/allCourses", {
             method: "GET",
             headers: {
                 authorization: localStorage.getItem("token")

@@ -2,18 +2,19 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {Button, Card, Grid, TextField, Typography} from "@mui/material";
 import axios from "axios";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { courseState } from "../Store/Atoms/course";
-import { isCourseImageSelector, isCourseLoadingSelector, isCoursePriceSelector, isCourseTitleSelector } from "../Store/Selectors/course";
+import { isCourseDetailsSelector, isCourseImageSelector, isCourseLoadingSelector, isCoursePriceSelector, isCourseTitleSelector } from "../Store/Selectors/course";
 
 function Course() {
-    const { courseId }  = useParams();
+    const { courseId } = useParams();
     const setCourse = useSetRecoilState(courseState);
     const isLoading = useRecoilValue(isCourseLoadingSelector);
 
     useEffect(() => {
-        // console.log(courseId);
-        fetch(`http://localhost:3000/course/${courseId}`, {
+        setCourse({ isLoading: true, course: null });
+
+        fetch(`http://localhost:3000/api/course/${courseId}`, {
             method: "GET",
             headers: {
                 authorization: localStorage.getItem("token")
@@ -26,23 +27,24 @@ function Course() {
             // console.log(res.course);
             const courseDetail = res.course;
             if(res.course) {
-                console.log(courseDetail);
+                // console.log(courseDetail);
                 setCourse({ isLoading: false, course: courseDetail });
             }
         })
         .catch(e => {
             setCourse({ isLoading: false, course: null});
         })
-    }, []);
+    }, [courseId]);
 
     if(isLoading) return <div>Loading...</div>
-
+    
+    console.log("ghdchv");
     return (
         <div>
             <GrayTopper />
             <Grid container spacing={0}>
                 <Grid size={{ xs: 12, sm: 12, md: 12, lg: 5}}>
-                    <UpdateCard courseId={courseId} />
+                    <UpdateCard />
                 </Grid>
                 <Grid  size={{ xs: 12, sm: 12, md: 12, lg: 7 }}>
                     <CourseCard />
@@ -52,37 +54,39 @@ function Course() {
     )
 }
 
-function UpdateCard({ courseId }) {
-    const [courseDetails, setCourse] = useRecoilState(courseState);
+function UpdateCard() {
+    const courseDetails = useRecoilValue(isCourseDetailsSelector);
+    const { courseId }= useParams();
+    const setCourse = useSetRecoilState(courseState);
+    
+    const [title, setTitle] = useState(courseDetails.title);
+    const [description, setDescription] = useState(courseDetails.description);
+    const [image, setImage] = useState(courseDetails.imageLink);
+    const [price, setPrice] = useState(courseDetails.price);
 
-    const [title, setTitle] = useState(courseDetails.course.title);
-    const [description, setDescription] = useState(courseDetails.course.description);
-    const [image, setImage] = useState(courseDetails.course.imageLink);
-    const [price, setPrice] = useState(courseDetails.course.price);
-
-    return(
+    return (
         <>
-            {/* {course.title +" "+ course.description +" "+ course.imageLink +" "+ course.price }
-            {title +" "+ description +" "+ image +" "+ price } */}
             <div style={{ display:"flex", justifyContent:"center"}}>
-                <div style={{ backgroundColor: "#fff", height: 270, width: 400, padding: 20,borderRadius: 4, marginTop: 180, marginLeft: 20}}>
-                    <Typography >Update Course Details</Typography>
+                <div style={{ backgroundColor: "#fff", height: 270, width: 400, padding: 20, borderRadius: 4, marginTop: 180, marginLeft: 20}}>
+                    <Typography> Update Course Details </Typography>
                     <br/>
-                    <TextField 
-                        fullWidth={ true } 
-                        // variant="outlined" 
-                        size="small" 
-                        label= "Title"
+                    <TextField
+                        fullWidth={ true }
+                        // variant="outlined"
+                        size="small"
+                        label="Title"
                         value={title}
                         onChange={e => {
                             setTitle(e.target.value);
                         }}
                     />
                     <br/><br/>
-                    <TextField 
-                        fullWidth={ true } 
-                        // variant="outlined" 
-                        size="small" 
+                    {/* { title +" "+ description +" "+ image +" "+ price } */}
+
+                    <TextField
+                        fullWidth={ true }
+                        // variant="outlined"
+                        size="small"
                         label="Description"
                         value={description}
                         onChange={e => {
@@ -90,10 +94,11 @@ function UpdateCard({ courseId }) {
                         }}
                     />
                     <br/><br/>
-                    <TextField 
-                        fullWidth={ true } 
-                        // variant="outlined" 
-                        size="small" 
+
+                    <TextField
+                        fullWidth={ true }
+                        // variant="outlined"
+                        size="small"
                         label="ImageLink"
                         value={image}
                         onChange={e => {
@@ -101,10 +106,11 @@ function UpdateCard({ courseId }) {
                         }}
                     />
                     <br/><br/>
+
                     <TextField
-                        fullWidth={ true } 
-                        // variant="outlined" 
-                        size="small" 
+                        fullWidth={ true }
+                        // variant="outlined"
+                        size="small"
                         label="Price"
                         value={price}
                         onChange={e => {
@@ -117,23 +123,23 @@ function UpdateCard({ courseId }) {
                         variant="contained" 
                         size="small"
                         onClick={() => {
-                            axios.put(`http://localhost:3000/course/courseUpdate/${courseId}`, {
-                                method: "PUT",
-                                headers: {
-                                    "authorization": localStorage.getItem("token"),
-                                    "Content-Type": "application/json"
-                                },
-                                body: {
+                            console.log("z", courseId);
+                            axios.put(`http://localhost:3000/api/course/courseUpdate/${courseId}`, 
+                                {
                                     title,
                                     description,
                                     imageLink: image,
                                     price
-                                }
+                                },
+                                {
+                                    headers: {
+                                        "authorization": localStorage.getItem("token"),
+                                    }
                             })
                             .then(res => {
                                 console.log(res);
                                 const updatedCourse = {
-                                    id: courseDetails.course.id,
+                                    id: courseId,
                                     title: title,
                                     description: description,
                                     imageLink: image,
@@ -190,7 +196,7 @@ function GrayTopper() {
     )
 }
 
-function Title() {  
+function Title() {
     const title = useRecoilValue(isCourseTitleSelector);
     return (
         <span> {title} </span>
@@ -205,6 +211,7 @@ function Image() {
         </>
     )
 }
+
 function Price() {
     const price = useRecoilValue(isCoursePriceSelector);
     return(
