@@ -83,9 +83,20 @@ router.get('/:courseId', authenticate, async (req, res) => {
 })
 
 // update a course.
-router.put("/courseUpdate/:courseId", (req, res) => {
-    // console.log(req.body);
+router.put("/courseUpdate/:courseId", async(req, res) => {
+    const courseDetails = req.body;
+
+    const { courseId } = req.params;
     
+    const course = await Course.findOne({ id: courseId });
+
+    course.title = courseDetails.title;
+    course.description = courseDetails.description;
+    course.imageLink = courseDetails.imageLink;
+    course.price = courseDetails.price;
+
+    course.save();
+
     res.status(200).json({
         message: "Course updated successfully"
     })
