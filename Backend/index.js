@@ -25,8 +25,8 @@ app.use("/course", courseRouter);
 app.use("/user", userRouter);
 
 app.use(express.static("public"));
-app.use("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/"));
+app.use("/hello", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/"));
 })
 
 app.listen(3000);
