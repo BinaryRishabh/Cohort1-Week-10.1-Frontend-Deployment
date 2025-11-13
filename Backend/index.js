@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 
 const connect = require("./Database/Connect/connect");
 const adminRouter = require("./Routes/admin");
@@ -23,12 +24,9 @@ app.use("/admin", adminRouter);
 app.use("/course", courseRouter);
 app.use("/user", userRouter);
 
-app.get('/name', (req, res) => {
-    res.send(`<h1>Anil Kumar Srivastava</h1>
-        <h2>Shalini Srivastava</h2>
-        <h3>Akasnsha Srivastava</h3>
-        <h4>Prashasti Srivastava is very cute!!</h4>
-        <h5>Welcome to our family BUDHHUUU!!</h5>`);
+app.use(express.static("public"));
+app.use("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/public/"));
 })
 
 app.listen(3000);
