@@ -12,7 +12,10 @@ const adminRouter = require("./Routes/admin");
 const courseRouter = require("./Routes/course");
 const userRouter = require("./Routes/user");
 
-app.use(cors());
+app.use(cors({
+
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());

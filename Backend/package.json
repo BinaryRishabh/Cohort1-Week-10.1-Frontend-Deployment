@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "start-windows": "cd ..\\Frontend && npm run build && cd ..\\Backend && (if exist public rmdir /s /q public) && mkdir ..\\Backend\\public && move ..\\Frontend\\dist\\*.* ..\\Backend\\public && move ..\\Frontend\\dist\\assets ..\\Backend\\public && cd ..\\Backend && pm2 start index.js",
+    "start-windows": "cd ..\\Frontend && npm run build && cd ..\\Backend && (if exist public rmdir /s /q public) && mkdir ..\\Backend\\public && move ..\\Frontend\\dist\\*.* ..\\Backend\\public && move ..\\Frontend\\dist\\assets ..\\Backend\\public && cd ..\\Backend && pm2 kill && pm2 start index.js",
     "start-linux": "cd ../Frontend && npm run build && rm -rf ../Backend/public && mkdir -p ../Backend/public && mv ../Frontend/dist/* ../Backend/public && cd ../Backend && pm2 start index.js"
   },
   "keywords": [],

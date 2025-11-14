@@ -1,6 +1,7 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config";
 
 function AddCourse() {
     const navigate = useNavigate();
@@ -79,7 +80,7 @@ function AddCourse() {
                             variant="contained" 
                             size="small"
                             onClick={() => {
-                                fetch("http://localhost:3000/api/course/addCourse", {
+                                fetch(`${BASE_URL}/api/course/addCourse`, {
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json",

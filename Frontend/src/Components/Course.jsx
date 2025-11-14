@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { courseState } from "../Store/Atoms/course";
 import { isCourseDetailsSelector, isCourseImageSelector, isCourseLoadingSelector, isCoursePriceSelector, isCourseTitleSelector } from "../Store/Selectors/course";
+import { BASE_URL } from "../../config";
 
 function Course() {
     const { courseId } = useParams();
@@ -14,7 +15,7 @@ function Course() {
     useEffect(() => {
         setCourse({ isLoading: true, course: null });
 
-        fetch(`http://localhost:3000/api/course/${courseId}`, {
+        fetch(`${BASE_URL}/api/course/${courseId}`, {
             method: "GET",
             headers: {
                 authorization: localStorage.getItem("token")
@@ -67,7 +68,7 @@ function UpdateCard() {
     return (
         <>
             <div style={{ display:"flex", justifyContent:"center"}}>
-                <div style={{ backgroundColor: "#fff", height: 270, width: 400, padding: 20, borderRadius: 4, marginTop: 180, marginLeft: 20}}>
+                <div style={{ backgroundColor: "#fff", height: 270, width: 400, padding: 20, borderRadius: 4, marginTop: 200, marginLeft: 20}}>
                     <Typography> Update Course Details </Typography>
                     <br/>
                     <TextField
@@ -124,7 +125,7 @@ function UpdateCard() {
                         size="small"
                         onClick={() => {
                             console.log("z", courseId);
-                            axios.put(`http://localhost:3000/api/course/courseUpdate/${courseId}`, 
+                            axios.put(`${BASE_URL}/api/course/courseUpdate/${courseId}`, 
                                 {
                                     title,
                                     description,
@@ -157,7 +158,7 @@ function UpdateCard() {
 
 function CourseCard() {
     return(
-        <div style={{ marginTop: 86, justifyContent: "center" }}>
+        <div style={{ marginTop: 190, justifyContent: "center" }}>
             <Card style={{ 
                 width: 350, 
                 minHeight: 200, 

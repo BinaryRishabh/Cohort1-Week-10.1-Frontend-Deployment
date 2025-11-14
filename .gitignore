@@ -2,3 +2,5 @@
 **package-lock.json
 .env
 dist
+config.js
+Backend/public

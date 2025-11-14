@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config";
 
 function Courses() {
 
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/course/allCourses", {
+        fetch(`${BASE_URL}/api/course/allCourses`, {
             method: "GET",
             headers: {
                 authorization: localStorage.getItem("token")

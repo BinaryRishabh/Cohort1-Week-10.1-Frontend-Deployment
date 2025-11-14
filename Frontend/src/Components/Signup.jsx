@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../Store/Atoms/admin";
+import { BASE_URL } from "../../config";
 
 function Signup() {
     const navigate = useNavigate();
@@ -41,8 +42,8 @@ function Signup() {
                     <Button 
                         variant="contained" 
                         size="small"
-                        onClick={ () => {
-                            fetch("http://localhost:3000/api/admin/signup", {
+                        onClick={ () => { 
+                            fetch(`${BASE_URL}/api/admin/signup`, {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",

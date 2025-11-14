@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import { userState } from "./Store/Atoms/admin";
+import { BASE_URL } from "../config";
+
 
 function App() {
 
@@ -52,7 +54,7 @@ function InitUser() {
 
   const init = async() => {
     try {
-      const response = await axios.get("http://localhost:3000/api/admin/verify", {
+      const response = await axios.get(`${BASE_URL}/api/admin/verify`, {
         method: "GET",
         headers: {
           "authorization": localStorage.getItem("token")
